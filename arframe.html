@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR-Scene</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/app.css">
+    <script src="lib/aframe.min.js"></script>
+    <script src="lib/aframe-ar.js"></script>
+</head>
+
+<body>
+    <a-scene embedded vr-mode-ui='enabled: false'
+        arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+        <a-marker type='barcode' value='1'>
+            <a-image id="arAlienImg" src="../images/alien.png" position="0 0 0" rotation="-90 0 0" scale="2 2 2"></a-image>
+        </a-marker>
+        <a-marker type='barcode' value='2'>
+            <a-image src="../images/armadillo.png" position="0 0 0" rotation="-90 0 0" scale="2 2 2"></a-image>
+        </a-marker>
+        <a-marker type='barcode' value='3'>
+            <a-image src="../images/eel.png" position="0 0 0" rotation="-90 0 0" scale="2 2 2"></a-image>
+        </a-marker>
+        <a-marker type='barcode' value='4'>
+            <a-image src="../images/owl.png" position="0 0 0" rotation="-90 0 0" scale="2 2 2"></a-image>
+        </a-marker>
+        <a-marker type='barcode' value='5'>
+            <a-image src="../images/mole.png" position="0 0 0" rotation="-90 0 0" scale="2 2 2"></a-image>
+        </a-marker>
+        <a-marker type='barcode' value='6'>
+            <a-image src="../images/sloth.png" position="0 0 0" rotation="-90 0 0" scale="2 2 2"></a-image>
+        </a-marker>
+        <a-marker type='barcode' value='7'>
+            <a-image src="../images/raven.png" position="0 0 0" rotation="-90 0 0" scale="2 2 2"></a-image>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+    
+    <script src="lib/jquery.min.js"></script>
+    <script src="js/arframe.js"></script>
+
+</body>
+
+</html>

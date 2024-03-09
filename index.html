@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maislabyrinth AR-Game</title>
+  <link rel="icon" href="/images/corn.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+  <link rel="stylesheet" href="lib/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/jquery-ui.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="lib/aframe.min.js"></script>
+  <script src="lib/aframe-ar.js"></script>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap.bundle.min.js"></script>
+  <script src="lib/jquery-ui.min.js"></script>
+  <script src="lib/jquery.ui.touch-punch.min.js"></script>
+</head>
+
+<body>
+  <!-- BACKGROUND IMAGE -->
+  <div id="background">
+
+    <!-- START SCREEN -->
+    <div id="startScreen" class="d-none">
+      <h1>Maislabyrinth AR-Game</h1>
+      <input type="text" id="nameInput" class="form-control input-field w-75" placeholder="Dein Name" />
+      <div id="playerReady" class="w-75">Standort suchen...</div>
+      <button id="startButton" class="btn btn-primary btn-lg main-button w-75">Start</button>
+    </div>
+
+    <!-- SCANNER SCREEN -->
+    <div id="scannerScreen" class="screen d-none">
+      <div id="arFrame" class="view-container"></div>
+
+      <div class="control-container">
+        <div id="scannerTextbox" class="textbox">
+          <div id="scannerTextboxTitle" class="textbox-title"></div>
+          <div id="scannerTextboxContent" class="textbox-content"></div>
+        </div>
+        <div class="button-row">
+          <button id="interactButton" class="d-none btn btn-primary btn-lg main-button bi bi-chat-dots"> Gespräch
+            starten</button>
+          <button id="repairButton" class="d-none btn btn-primary btn-lg main-button bi bi bi-tools">
+            Reparieren</button>
+          <button id="bagButton" class="d-none btn btn-primary btn-lg main-button w-75 bi bi-backpack"> Beutel</button>
+          <button id="settingButton" class="btn btn-secondary btn-lg main-button bi bi-gear"></button>
+
+          <button id="photoButton" class="d-none btn btn-primary btn-lg main-button bi bi-camera"> Foto machen</button>
+          <button id="againPhotoButton" class="d-none btn btn-primary btn-lg main-button w-50 mr-2 bi bi-arrow-repeat">
+            Nochmal</button>
+          <button id="confirmPhotoButton" class="d-none btn btn-success btn-lg main-button w-50 ml-2 bi bi-check2">
+            Zufrieden</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VICTORY SCREEN -->
+    <div id="victoryScreen" class="screen justify-content-end d-none">
+      <div class="view-container">
+        <div class="image-container">
+          <img id="victoryPhoto">
+        </div>
+      </div>
+
+      <div class="control-container">
+        <div id="endTextbox" class="textbox">
+          <div id="endTextboxTitle" class="textbox-title"></div>
+          <div id="endTextboxContent" class="textbox-content"></div>
+        </div>
+
+        <div class="button-row">
+          <a download id="downloadButton" class="btn btn-primary btn-lg main-button w-50 mr-2 bi bi-download"
+            role="button">
+            Download</a>
+          <button id="anotherPhotoButton" class="btn btn-success btn-lg main-button w-50 ml-2 bi bi-arrow-repeat">
+            Neues Foto</button>
+        </div>
+        <button class="restartButton btn-danger btn-lg main-button"><i class="bi bi-trash"></i> Spiel neu
+          starten</button>
+      </div>
+    </div>
+
+    <!-- BAG SCREEN -->
+    <div id="bagScreen" class="screen d-none">
+      <div class="view-container">
+        <div id="wheel" class="part"></div>
+        <div id="accu" class="part"></div>
+        <div id="headlight" class="part"></div>
+        <div id="steeringwheel" class="part"></div>
+        <div id="navigation" class="part"></div>
+        <div id="turbine" class="part"></div>
+      </div>
+      <div class="control-container">
+        <div id="bagTextbox" class="textbox">
+          <div id="bagTextboxTitle" class="textbox-title">Beutel</div>
+          <div id="bagTextboxContent" class="textbox-content">Hier siehst du deine gesammelten Teile.</div>
+        </div>
+        <button id="bagScannerButton" class="btn btn-primary btn-lg main-button"><i class="bi bi-upc-scan"></i>
+          Scanner</button>
+      </div>
+    </div>
+
+    <!-- SETTINGS SCREEN -->
+    <div id="settingScreen" class="screen d-none">
+      <div class="view-container">
+        <div id="helpTextbox" class="textbox">
+          <div id="helpTextboxTitle" class="textbox-title">Hilfe</div>
+          <div id="helpTextboxContent" class="textbox-content">
+            <p>Vergewissere dich, dass du den Kamera- und
+              Standortzugriff
+              für deinen Browser aktiviert hast. </p>
+            <p>Falls etwas nicht funktioniert oder du Hilfe brauchst, sprich unser Personal an. </p>
+            <p>Falls du deinen aktuellen Spielstand löschen möchtest, klicke auf "Spiel neu starten". </p>
+          </div>
+        </div>
+        <button class="restartButton btn-danger btn-lg main-button"><i class="bi bi-trash"></i> Spiel neu
+          starten</button>
+      </div>
+      <div class="control-container">
+
+        <div id="settingTextbox" class="textbox">
+          <div id="settingTextboxTitle" class="textbox-title">Einstellungen</div>
+          <div id="settingTextboxContent" class="textbox-content"></div>
+        </div>
+        <button id="settingScannerButton" class="btn btn-primary btn-lg main-button"><i class="bi bi-upc-scan"></i>
+          Scanner</button>
+      </div>
+    </div>
+
+    <!-- DIALOGUE SCREEN -->
+    <div id="dialogueScreen" class="screen d-none justify-content-end">
+
+      <div class="view-container">
+        <div class="image-container">
+          <img id="speakerImg" />
+        </div>
+      </div>
+
+      <div class="control-container">
+        <div id="dialogueTextbox" class="textbox">
+          <div id="dialogueTextboxTitle" class="textbox-title"></div>
+          <div id="dialogueTextboxContent" class="textbox-content"></div>
+        </div>
+        <button id="nextDialogue" class="btn btn-primary btn-lg main-button">Weiter</button>
+      </div>
+
+    </div>
+
+    <!-- CUSTOM SCREEN -->
+    <div id="customScreen" class="screen d-none justify-content-end">
+
+      <div class="view-container">
+
+        <div class="image-container">
+          <img id="alienImg" src="images/alien.png" />
+          <img id="hatImg" />
+          <img id="glassesImg" />
+          <img id="beardImg" />
+          <img id="clothesImg" />
+        </div>
+      </div>
+
+      <div class="control-container">
+        <div class="button-row">
+          <button id="chooseHat" class="btn btn-light choose-button"><i class="bi bi-arrow-left-right"></i>
+            Hut</button>
+          <button id="chooseGlasses" class="btn btn-light choose-button"><i class="bi bi-arrow-left-right"></i>
+            Brille</button>
+        </div>
+        <div class="button-row">
+          <button id="chooseBeard" class="btn btn-light choose-button"><i class="bi bi-arrow-left-right"></i>
+            Bart</button>
+          <button id="chooseClothes" class="btn btn-light choose-button"><i class="bi bi-arrow-left-right"></i>
+            Kleidung</button>
+        </div>
+        <button id="saveCustom" class="btn btn-primary btn-lg main-button">Speichern</button>
+      </div>
+
+      <!-- CONFIRM CUSTOM MODAL -->
+      <div class="modal fade" id="confirmCustomModal" tabindex="-1" aria-labelledby="confirmCustomModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content text-center align-items-center">
+            <div class="modal-body">
+              Bist du fertig?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbruch</button>
+              <button type="button" class="btn btn-primary" id="confirmCustom">Ja</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MEMORY SCREEN -->
+    <div id="memoryScreen" class="screen d-none">
+      <div class="view-container">
+        <div class="memory-card" data-picture="wheel">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+        <div class="memory-card" data-picture="wheel">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+
+        <div class="memory-card" data-picture="football">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+        <div class="memory-card" data-picture="football">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+
+        <div class="memory-card" data-picture="basketball">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+        <div class="memory-card" data-picture="basketball">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+
+        <div class="memory-card" data-picture="volleyball">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+        <div class="memory-card" data-picture="volleyball">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+
+        <div class="memory-card" data-picture="bowlingball">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+        <div class="memory-card" data-picture="bowlingball">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+        <div class="memory-card" data-picture="melon">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+        <div class="memory-card" data-picture="melon">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+      </div>
+
+      <div class="control-container">
+        <div id="MemoryTextbox" class="textbox">
+          <div id="MemoryTextboxTitle" class="textbox-title">Aufgabe</div>
+          <div id="MemoryTextboxContent" class="textbox-content">Finde alle Paare!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quizScreen" class="screen d-none">
+      <div class="view-container">
+        <div id="quiz-card" class="card">
+          <div class="card-body">
+            <div id="question" class="mb-2"></div>
+            <div id="answers" class="d-grid gap-2 col-6 mx-auto"></div>
+            <button id="next" class="btn btn-info mt-2" style="display:none;"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-container">
+        <div id="quizTextbox" class="textbox">
+          <div id="quizTextboxTitle" class="textbox-title">Aufgabe:</div>
+          <div id="quizTextboxContent" class="textbox-content">Beantworte ALLE Fragen nacheinander richtig!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUZZLE SCREEN -->
+    <div id="puzzleScreen" class="screen d-none">
+
+      <div class="view-container">
+        <div id="board"></div>
+      </div>
+
+      <div class="control-container">
+        <div id="puzzleTextbox" class="textbox">
+          <div id="puzzleTextboxTitle" class="textbox-title">Aufgabe</div>
+          <div id="puzzleTextboxContent" class="textbox-content">Verschiebe die Teile so, dass der Strom fließen kann!
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- WHACK A MOLE SCREEN -->
+    <div id="whackamoleScreen" class="screen d-none">
+      <div class="view-container">
+        <div class="whackamole-game">
+          <div class="hole hole1">
+            <div class="mole"></div>
+          </div>
+          <div class="hole hole2">
+            <div class="mole"></div>
+          </div>
+          <div class="hole hole3">
+            <div class="mole"></div>
+          </div>
+          <div class="hole hole4">
+            <div class="mole"></div>
+          </div>
+          <div class="hole hole5">
+            <div class="mole"></div>
+          </div>
+          <div class="hole hole6">
+            <div class="mole"></div>
+          </div>
+          <div class="hole hole7">
+            <div class="mole"></div>
+          </div>
+          <div class="hole hole8">
+            <div class="mole"></div>
+          </div>
+          <div class="hole hole9">
+            <div class="mole"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-container">
+        <h1 class="score">10</h1>
+        <button id="startWhackamole" class="btn btn-primary btn-lg main-button">Start!</button>
+        <div id="whackamoleTextbox" class="textbox">
+          <div id="whackamoleTextboxTitle" class="textbox-title">Aufgabe</div>
+          <div id="whackamoleTextboxContent" class="textbox-content">Treffe den Maulwurf 10 Mal!</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SHEEP COUNT SCREEN -->
+    <div id="sheepScreen" class="screen d-none">
+      <div id="sheepContainer" class="view-container">
+        <img id="sheepImage" class="d-none w-100" src="images/sheep.png">
+        <img id="unknownImage" class="w-100" src="images/unknown_black.png">
+      </div>
+
+      <div class="control-container">
+
+        <!-- When the start Button is clicked, it disappears and the timer appears -->
+        <button id="startCount" class="btn btn-primary btn-lg main-button">Start!</button>
+        <h1 id="timer" class="d-none score"></h1>
+
+        <div id="sheepTextbox" class="textbox">
+          <div id="sheepTextboxTitle" class="textbox-title">Aufgabe</div>
+          <div id="sheepTextboxContent" class="textbox-content">Versuche, alle Schafe in 20 Sekunden zu zählen!</div>
+        </div>
+
+        <!-- Form shows up after 30s -->
+        <div id='sheepInputForm' class="d-none">
+          <label>Anzahl Schafe:</label>
+          <input id="sheepInput" class="form-control input-field" type="text" placeholder="Wie viele Schafe?">
+          <button disabled id="sheepSave" class="btn btn-primary btn-lg main-button">Speichern</button>
+        </div>
+
+        <button id="nextSloth" class="d-none btn btn-primary btn-lg main-button">Weiter</button>
+      </div>
+
+    </div>
+
+    <!-- TAROT SCREEN -->
+    <div id="tarotScreen" class="screen d-none">
+      <div class="view-container">
+        <div class="tarot-card" data-picture="star">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+        <div class="tarot-card" data-picture="sun">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+
+        <div class="tarot-card" data-picture="moon">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+        <div class="tarot-card" data-picture="fortune">
+          <img class="front-face" />
+          <img class="back-face" />
+        </div>
+      </div>
+
+      <div class="control-container">
+        <div id="tarotTextbox" class="textbox">
+          <div id="tarotTextboxTitle" class="textbox-title">Rabe Raban</div>
+          <div id="tarotTextboxContent" class="textbox-content">Wähle eine Karte!</div>
+        </div>
+        <button id="nextRaven" class="d-none btn btn-primary btn-lg main-button">Weiter</button>
+      </div>
+    </div>
+
+    <!-- CONFIRM RESTART MODAL -->
+    <div class="modal fade" id="confirmRestartModal" tabindex="-1" aria-labelledby="confirmRestartModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered m-3">
+        <div class="modal-content text-center align-items-center">
+          <div class="modal-body">
+            Bist du sicher, dass du das Spiel neustarten möchtest? Dabei geht jeglicher Spielfortschritt verloren!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbruch</button>
+            <button type="button" class="btn btn-danger" id="confirmRestartButton">Ja</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config-game.js"></script>
+  <script src="js/custom-screen.js"></script>
+  <script src="js/start-screen.js"></script>
+  <script src="js/memory-screen.js"></script>
+  <script src="js/quiz-screen.js"></script>
+  <script src="js/whackamole-screen.js"></script>
+  <script src="js/puzzle-screen.js"></script>
+  <script src="js/sheep-screen.js"></script>
+  <script src="js/tarot-screen.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

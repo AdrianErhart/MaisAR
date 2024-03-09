@@ -1,0 +1,353 @@
+/* GENERAL CSS */
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+#background {
+    height: 100%;
+    background-image: url('./images/corn_field.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.screen {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    height: 100%;
+}
+
+.view-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center ;
+}
+
+.control-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.image-container {
+    width: 75%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin: 0.5rem;
+}
+
+.image-container img {
+    position: absolute;
+    width: 100%
+}
+
+.button-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.choose-button {
+    width: 50%;
+    padding: 1rem;
+    margin: 0.5rem;
+}
+
+.main-button {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.input-field {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.textbox {
+    padding: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+.textbox-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.textbox-content {
+    text-align: left;
+}
+
+/* START SCREEN */
+
+#startScreen {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    height: 100%;
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    -webkit-text-stroke: 1px black;
+    text-shadow:
+        3px 3px 0 #000,
+        /* Horizontal shadow */
+        -1px -1px 0 #000,
+        /* Top-left shadow */
+        1px -1px 0 #000,
+        /* Top-right shadow */
+        -1px 1px 0 #000,
+        /* Bottom-left shadow */
+        1px 1px 0 #000;
+        /* Bottom-right shadow */
+}
+
+#startScreen h1 {
+    font-size: 6vw;
+    /* Adjust the size of the title for smaller screens */
+}
+
+/* SCANNER SCREEN */
+
+#arFrame {
+    height: 100%;
+}
+
+iframe {
+    border-radius: 0.2rem;
+    border: 0.2rem solid rgba(0, 0, 0, 0.7);
+}
+
+/* CUSTOM SCREEN */
+#alienImg {
+    z-index: 1;
+}
+
+#clothesImg {
+    z-index: 2;
+}
+
+#glassesImg {
+    z-index: 3;
+}
+
+#beardImg {
+    z-index: 4;
+}
+
+#hatImg {
+    z-index: 5;
+}
+
+/* SETTINGS SCREEN */
+#settingScreen {
+    background-image: url('./images/settings.png');
+    /* Adjust the path as needed */
+    background-size: cover;
+}
+
+/* BAG SCREEN */
+
+.part {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.25rem;
+    margin: 0.25rem;
+    width: 40%;
+
+}
+
+.part img {
+    width: 100%;
+    height: auto;
+}
+
+/* MEMORY SCREEN */
+
+.memory-card {
+    width: 30%;
+    aspect-ratio: 1 / 1;
+    margin: 0.25rem;
+
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    box-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, .3);
+}
+
+.memory-card:active {
+    transform: scale(0.97);
+    transition: transform .2s;
+}
+
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+
+.front-face,
+.back-face {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    position: absolute;
+    border-radius: 0.2rem;
+    backface-visibility: hidden;
+}
+
+.back-face {
+    background: #C2E39F;
+}
+
+.front-face {
+    background: white;
+    background: white;
+    transform: rotateY(180deg);
+}
+
+/* QUIZ SCREEN */
+
+#quiz-card {
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+/* WHACK A MOLE SCREEN */
+
+#whackamoleScreen {
+    background-image: url('./images/grass.png');
+    background-size: cover;
+}
+
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.score {
+    background: rgba(255, 255, 255, 0.7);
+    display: inline;
+    padding: 0.5rem;
+    line-height: 1;
+    border-radius: 1rem;
+}
+
+.whackamole-game {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-wrap: wrap;
+    perspective: 1000px;
+}
+
+.hole {
+    width: 33%;
+    overflow: hidden;
+    position: relative;
+}
+
+.hole:after {
+    display: block;
+    background: url('./images/hole.png') bottom center no-repeat;
+    background-size: contain;
+    content: '';
+    width: 100%;
+    height: 60%;
+    position: absolute;
+    z-index: 2;
+    bottom: -30px;
+}
+
+.mole {
+    background: url('./images/mole.png') bottom center no-repeat;
+    background-size: 70%;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 100%;
+    transition: all 0.4s;
+}
+
+.hole.up .mole {
+    top: 0;
+}
+
+/* PUZZLE SCREEN */
+
+#board {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: white;
+    border: 0.1rem solid black;
+}
+
+#board img {
+    width: 33.33%;
+    aspect-ratio: 1 / 1;
+    border: 0.1rem solid black;
+}
+
+/* SHEEP COUNT SCREEN */
+#sheepScreen {
+    background-image: url('./images/grass.png');
+    background-size: cover;
+}
+
+#sheepContainer img {
+    width: 100%;
+    border-radius: 0.3rem;
+}
+
+#sheepInputForm {
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;  
+}
+
+/* TAROT SCREEN */
+
+.tarot-card {
+    width: 40%;
+    aspect-ratio: 1 / 1;
+    margin: 0.25rem;
+
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    box-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, .3);
+}
+
+.tarot-card:active {
+    transform: scale(0.97);
+    transition: transform .2s;
+}
+
+.tarot-card.flip {
+    transform: rotateY(180deg);
+}
+
+/* VICTORY SCREEN */
+
+#victoryPhoto {
+    border-radius: 0.2rem;
+    border: 0.2rem solid rgba(0, 0, 0, 0.7);;
+}
