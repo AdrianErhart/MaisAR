@@ -1,5 +1,5 @@
-var actualSheepCount = 50; // Set the actual number of sheep
-var timeLeft = 20;
+var actualSheepCount = 44; // Set the actual number of sheep
+var timeLeft = 30;
 
 $('#startCount').click(function () {
   $('#unknownImage').addClass('d-none'); // Hide the unknown image

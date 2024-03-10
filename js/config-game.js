@@ -26,7 +26,7 @@ const entities = {
         img: "images/eel.png"
     },
     owl: {
-        name: 'Eule Eugen',
+        name: 'Eule Eugenia',
         img: "images/owl.png"
     },
     mole: {
@@ -200,7 +200,7 @@ const markersData = [{
         },
         postScan: {
             speaker: entities.owl.name,
-            text: "Du bist schauer als du aussiehst."
+            text: "Du bist schlauer als du aussiehst."
         }
     },
     {
@@ -258,7 +258,7 @@ const dialogues = {
         },
         {
             speaker: entities.alien.name,
-            text: "...ich glaube sie sind im Maisfeld verstreut...",
+            text: "...ich glaube, sie sind im Maisfeld verstreut...",
             image: entities.alien.img
         },
         {
@@ -475,7 +475,7 @@ const dialogues = {
         },
         {
             speaker: entities.owl.name,
-            text: "...würde ich gern wissen, ob du dich auch...",
+            text: "...würde ich gerne wissen, ob du dich auch...",
             image: entities.owl.img,
         },
         {
@@ -487,7 +487,7 @@ const dialogues = {
     ],
     scene40: [{
             speaker: entities.owl.name,
-            text: "Du weißt mehr, als ich dachte...",
+            text: "Du weißt mehr als ich dachte...",
             image: entities.owl.img,
         },
         {
@@ -511,7 +511,7 @@ const dialogues = {
         },
         {
             speaker: entities.mole.name,
-            text: "Schau mal was ich gefunden hab...",
+            text: "Schau mal, was ich gefunden hab...",
             image: entities.mole.img,
         },
         {
@@ -531,7 +531,7 @@ const dialogues = {
         },
         {
             speaker: entities.mole.name,
-            text: "ICH MUSS MICH VERSTECKEN",
+            text: "ICH MUSS MICH VERSTECKEN!",
             image: entities.mole.img,
             nextScreen: '#whackamoleScreen'
         },
@@ -671,7 +671,7 @@ const dialogues = {
         },
         {
             speaker: entities.raven.name,
-            text: "Ich helfe dir gern.",
+            text: "Ich helfe dir gerne.",
             image: entities.raven.img_crystal,
         },
         {
