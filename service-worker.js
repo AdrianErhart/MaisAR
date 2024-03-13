@@ -1,5 +1,5 @@
-const CACHE_NAME = 'v1';
-const urlsToCache = [
+const cacheName = 'maisARCache';
+const cacheFiles = [
     '/',
     'images/puzzle/1_after.png',
     'images/puzzle/1.png',
@@ -97,10 +97,30 @@ const urlsToCache = [
 self.addEventListener('install', (event) => {
     // install service worker
     event.waitUntil(
-        caches.open(CACHE_NAME)
+        caches.open(cacheName)
         .then((cache) => {
             console.log('Opened cache');
-            return cache.addAll(urlsToCache);
+            return cache.addAll(cacheFiles);
+        })
+    );
+});
+
+self.addEventListener('activate', (event) => {
+    const cacheWhitelist = [cacheName]; // Liste der Cache-Namen, die erhalten bleiben sollen
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                        // Löscht alte Cache-Versionen
+                        console.log('Deleting old cache:', cacheName);
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        }).then(() => {
+            // Teilt mit, dass der Service Worker sofort nach der Installation die Kontrolle über die Seiten übernimmt
+            return self.clients.claim();
         })
     );
 });

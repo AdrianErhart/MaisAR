@@ -17,7 +17,7 @@ function checkIfPlayerReady() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            const distance = calculateDistance(playerPosition, START_POINT);
+            const distance = calculateDistance(playerPosition, startPoint);
             const nameEntered = $('#nameInput').val().trim() !== '';
             const isWithinStartZone = distance <= zoneRadius;
 

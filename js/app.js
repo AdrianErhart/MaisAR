@@ -347,7 +347,7 @@ function updateName() {
 //HANDLING VICTORY PHOTO
 //tell ar-frame to take a photo
 function takePhoto() {
-    var iframe = document.getElementsByTagName('iframe')[0];
+    var iframe = document.getElementsByTagName('iframe');
     iframe.contentWindow.postMessage({
         action: 'takePhoto'
     }, '*');

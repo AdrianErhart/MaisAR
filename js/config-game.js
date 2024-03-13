@@ -1,6 +1,6 @@
 //LOCATION
 const zoneRadius = 1000000;
-const START_POINT = {
+const startPoint = {
     lat: 49.0030723,
     lng: 12.0952392
 };
